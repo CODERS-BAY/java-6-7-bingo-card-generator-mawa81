@@ -11,7 +11,7 @@ public class Main {
         int[][] bingo = new int[columns][rows];
         int[][] bounds = {{1, 16}, {16, 31}, {31, 46}, {46, 61}, {61, 76}};
         List<Integer> list = new ArrayList<Integer>();
-        int temp = 0;
+
         int number = 0;
         Random random = new Random();
 
