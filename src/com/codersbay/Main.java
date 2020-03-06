@@ -8,14 +8,22 @@ public class Main {
     public static void main(String[] args) {
         int columns = 5;
         int rows = 5;
-        int[][] bingo = new int[columns][rows];
+
         int[][] bounds = {{1, 16}, {16, 31}, {31, 46}, {46, 61}, {61, 76}};
-        List<Integer> list = new ArrayList<Integer>();
 
-        int number = 0;
-        Random random = new Random();
+        int[][] bingoFields = setBingoFields(columns, rows, bounds);
 
+        printToConsole(bingoFields);
+
+
+    }
+
+    private static int[][] setBingoFields(int columns, int rows, int[][] bounds) {
         // Create random numbers for each column
+        List<Integer> list = new ArrayList<Integer>();
+        Random random = new Random();
+        int number;
+        int[][] fields = new int[columns][rows];
         for (int i = 0; i < columns; i++) {
 
             int low = bounds[i][0];
@@ -23,10 +31,10 @@ public class Main {
 
             for (int j = 0; j < rows; j++) {
                 if (i == 2 && j == 2) {           //empty field in the middle(0)
-                    bingo[i][j] = 0;
+                    fields[i][j] = 0;
                     continue;
                 }
-                for (int element : bingo[i]) {        //convert Array to Arraylist
+                for (int element : fields[i]) {        //convert Array to Arraylist
                     list.add(element);
                 }
                 number = random.nextInt(high - low) + low;  //
@@ -34,13 +42,16 @@ public class Main {
                 while (list.contains(number)) {      // filter double numbers
                     number = random.nextInt(high - low) + low;
                 }
-                bingo[i][j] = number;
+                fields[i][j] = number;
             }
         }
+        return fields;
+    }
 
+    private static void printToConsole(int[][] bingo) {
         // Print to console
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
+        for (int i = 0; i < bingo.length; i++) {
+            for (int j = 0; j < bingo[i].length; j++) {
                 if (i == 2 && j == 2) {           //empty field in the middle("    ")
                     System.out.print("    ");
                     continue;
@@ -49,7 +60,5 @@ public class Main {
             }
             System.out.println();
         }
-
-
     }
 }
