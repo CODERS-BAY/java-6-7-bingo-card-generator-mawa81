@@ -1,6 +1,6 @@
 package com.codersbay;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -9,21 +9,21 @@ public class Main {
         int columns = 5;
         int rows = 5;
 
-        int[][] bounds = {{1, 16}, {16, 31}, {31, 46}, {46, 61}, {61, 76}};
+        Integer[][] bounds = {{1, 16}, {16, 31}, {31, 46}, {46, 61}, {61, 76}};
 
-        int[][] bingoFields = setBingoFields(columns, rows, bounds);
+        Integer[][] bingoFields = setBingoFields(columns, rows, bounds);
 
         printToConsole(bingoFields);
 
 
     }
 
-    private static int[][] setBingoFields(int columns, int rows, int[][] bounds) {
+    private static Integer[][] setBingoFields(int columns, int rows, Integer[][] bounds) {
         // Create random numbers for each column
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list;
         Random random = new Random();
         int number;
-        int[][] fields = new int[columns][rows];
+        Integer[][] fields = new Integer[columns][rows];
         for (int i = 0; i < columns; i++) {
 
             int low = bounds[i][0];
@@ -34,10 +34,9 @@ public class Main {
                     fields[i][j] = 0;
                     continue;
                 }
-                for (int element : fields[i]) {        //convert Array to Arraylist
-                    list.add(element);
-                }
-                number = random.nextInt(high - low) + low;  //
+                
+                list = Arrays.asList(fields[i]);
+                number = random.nextInt(high - low) + low;
 
                 while (list.contains(number)) {      // filter double numbers
                     number = random.nextInt(high - low) + low;
@@ -48,7 +47,7 @@ public class Main {
         return fields;
     }
 
-    private static void printToConsole(int[][] bingo) {
+    private static void printToConsole(Integer[][] bingo) {
         // Print to console
         for (int i = 0; i < bingo.length; i++) {
             for (int j = 0; j < bingo[i].length; j++) {
